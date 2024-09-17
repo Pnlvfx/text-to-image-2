@@ -1,4 +1,4 @@
-import { ReadImage } from './readimage-data.js';
+import type { ReadImage } from './readimage-data.js';
 
 const paddedHex = (intVal: number) => {
   let s = intVal.toString(16);
@@ -19,7 +19,7 @@ export const extractColors = (image: ReadImage) => {
     const b = pixels[i + 2];
     // a = pixels[i + 3]
 
-    if (!r || !g || !b) throw new Error('Cannot extract colors.');
+    if (typeof r !== 'number' || typeof g !== 'number' || typeof b !== 'number') throw new Error('Cannot extract colors.');
 
     const hexNotation = `#${paddedHex(r)}${paddedHex(g)}${paddedHex(b)}`;
     let currValue = colorMap[hexNotation];

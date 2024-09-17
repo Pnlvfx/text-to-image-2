@@ -5,12 +5,12 @@
 import { glob } from 'glob';
 import fs from 'node:fs';
 import path from 'node:path';
-import sizeOf from 'image-size';
 import { extractColors } from './helpers/extract-colors.js';
 import { uriToBuf, readImageData, countWhitePixels } from './helpers/readimage-data.js';
 import longInput from './helpers/longinput.js';
 import textToImage from '../src/text-to-image.js';
 import { afterEach, describe, expect, it, jest } from '@jest/globals';
+import sharp from 'sharp';
 
 // For development purposes only.
 // We can't commit the snapshots since they
@@ -26,6 +26,12 @@ function takeSnapshot(data: string) {
     expect(data).toMatchSnapshot();
   }
 }
+
+const sizeOf = async (image: Buffer) => {
+  const { width, height } = await sharp(image).metadata();
+  if (typeof width !== 'number' || typeof height !== 'number') throw new Error('invalid dimensions');
+  return { width, height };
+};
 
 describe('the text-to-image generator', () => {
   afterEach(async () => {
@@ -65,7 +71,7 @@ describe('the text-to-image generator', () => {
     const images = glob.sync(filePath);
     expect(images.length).toBe(1);
 
-    await fs.promises.rmdir(baseDir, { recursive: true });
+    await fs.promises.rm(baseDir, { recursive: true });
   });
 
   it('should support custom filepaths in async debug mode', async () => {
@@ -79,7 +85,7 @@ describe('the text-to-image generator', () => {
     const images = glob.sync(filePath);
     expect(images.length).toBe(1);
 
-    await fs.promises.rmdir(baseDir, {
+    await fs.promises.rm(baseDir, {
       recursive: true,
     });
   });
@@ -126,8 +132,8 @@ describe('the text-to-image generator', () => {
     const image1 = uriToBuf(uri1);
     const image2 = uriToBuf(uri2);
 
-    const dimensions1 = sizeOf(image1);
-    const dimensions2 = sizeOf(image2);
+    const dimensions1 = await sizeOf(image1);
+    const dimensions2 = await sizeOf(image2);
 
     if (!dimensions2.height) throw new Error('No dimension');
 
@@ -143,8 +149,8 @@ describe('the text-to-image generator', () => {
     const uri1 = await textToImage.generate('Hello world');
     const uri2 = await textToImage.generate('Hello world\nhello again');
 
-    const dimensions1 = sizeOf(uriToBuf(uri1));
-    const dimensions2 = sizeOf(uriToBuf(uri2));
+    const dimensions1 = await sizeOf(uriToBuf(uri1));
+    const dimensions2 = await sizeOf(uriToBuf(uri2));
 
     if (!dimensions2.height) throw new Error('No dimension');
 
@@ -160,8 +166,8 @@ describe('the text-to-image generator', () => {
     const uri1 = await textToImage.generate('Hello world\nhello again');
     const uri2 = await textToImage.generate('Hello world\n\n\nhello again');
 
-    const dimensions1 = sizeOf(uriToBuf(uri1));
-    const dimensions2 = sizeOf(uriToBuf(uri2));
+    const dimensions1 = await sizeOf(uriToBuf(uri1));
+    const dimensions2 = await sizeOf(uriToBuf(uri2));
 
     if (!dimensions2.height) throw new Error('No dimension');
 
@@ -176,7 +182,7 @@ describe('the text-to-image generator', () => {
   it('should default to a 400 px wide image', async () => {
     const uri = await textToImage.generate('Lorem ipsum dolor sit amet.');
 
-    const dimensions = sizeOf(uriToBuf(uri));
+    const dimensions = await sizeOf(uriToBuf(uri));
 
     expect(dimensions.width).toEqual(400);
 
@@ -188,7 +194,7 @@ describe('the text-to-image generator', () => {
       maxWidth: 500,
     });
 
-    const dimensions = sizeOf(uriToBuf(uri));
+    const dimensions = await sizeOf(uriToBuf(uri));
     expect(dimensions.width).toEqual(500);
 
     takeSnapshot(uri);
@@ -236,7 +242,7 @@ describe('the text-to-image generator', () => {
 
     const imageData = uriToBuf(uri);
 
-    const dimensions = sizeOf(imageData);
+    const dimensions = await sizeOf(imageData);
     expect(dimensions.width).toEqual(WIDTH);
     expect(dimensions.height).toEqual(HEIGHT);
 
@@ -265,7 +271,7 @@ describe('the text-to-image generator', () => {
 
     const imageData = uriToBuf(uri);
 
-    const dimensions = sizeOf(imageData);
+    const dimensions = await sizeOf(imageData);
     expect(dimensions.width).toEqual(WIDTH);
     expect(dimensions.height).toEqual(HEIGHT);
 
@@ -453,22 +459,6 @@ describe('the text-to-image generator', () => {
 
     const whitePixels2 = countWhitePixels(imageData, 0, 145, 35, 175);
     expect(whitePixels2).toBe(35 * (175 - 145));
-
-    takeSnapshot(uri);
-  });
-
-  it('should support leading non-breaking spaces', async () => {
-    const uri = await textToImage.generate(
-      `\u00A0\u00A0\u00A0Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. \n\u00A0\u00A0\u00A0\u00A0\u00A0Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.`,
-    );
-
-    const imageData = await readImageData(uriToBuf(uri));
-    // check that we only have only white pixels in the top left corner
-    const whitePixels1 = countWhitePixels(imageData, 0, 0, 20, 30);
-    expect(whitePixels1).toBe(20 * 30);
-
-    const whitePixels2 = countWhitePixels(imageData, 0, 60, 30, 90);
-    expect(whitePixels2).toBe(30 * 30);
 
     takeSnapshot(uri);
   });

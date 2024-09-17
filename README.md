@@ -2,17 +2,13 @@
 
 # Text to image
 
-[![Code Coverage](https://img.shields.io/coveralls/bostrom/text-to-image.svg)](https://coveralls.io/github/bostrom/text-to-image)
-[![Npm Version](https://img.shields.io/npm/v/text-to-image.svg)](https://www.npmjs.com/package/text-to-image)
+[![Code Coverage](https://img.shields.io/coveralls/bostrom/text-to-image.svg)](https://coveralls.io/github/bostrom/text-to-image-2)
+[![Npm Version](https://img.shields.io/npm/v/text-to-image.svg)](https://www.npmjs.com/package/text-to-image-2)
 [![License](https://img.shields.io/badge/license-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 
 A library for generating an image data URI representing an image containing the text of your choice.
 
 Originally part of a Twitter bot for publishing tweets longer than 140 characters, the generator takes a string and an optional configuration object as parameters and produces an image data URI (`data:image/png;base64,iVBORw0KGgoAAAA...`).
-
-## Try it
-
-Use [this CodeSandbox](https://codesandbox.io/s/text-to-image-example-r8h1o?file=/src/index.ts) to try out text-to-image in your browser.
 
 ## Installation
 
@@ -59,9 +55,7 @@ Example:
 const textToImage = require('text-to-image');
 
 // Add indent as tabs
-const tabbedText = await textToImage.generate(
-  '\tDonec id elit non mi porta gravida at eget metus. \n\tSed posuere consectetur est at lobortis.',
-);
+const tabbedText = await textToImage.generate('\tDonec id elit non mi porta gravida at eget metus. \n\tSed posuere consectetur est at lobortis.');
 
 // Add indent as non-breaking spaces
 const spacedText = await textToImage.generate(

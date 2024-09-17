@@ -79,7 +79,7 @@ const createTextData = (
 
   for (let n = 0; n < wordCount; n += 1) {
     let word = words[n];
-    if (!word) throw new Error('Something went wrong!');
+    if (typeof word !== 'string') throw new Error('Something went wrong!');
 
     if (word.includes('\n')) {
       const parts = word.split('\n');

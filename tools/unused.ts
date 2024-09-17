@@ -1,7 +1,7 @@
 import coraline from 'coraline';
 
 const unused = coraline.findUnusedExports({
-  ignoreFiles: ['text-to-image.ts'],
+  ignoreFiles: ['jest.config.ts'],
   ignoreVars: [],
 });
 
