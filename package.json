@@ -1,7 +1,7 @@
 {
   "name": "text-to-image-2",
   "description": "A library for generating an image data URI representing an image containing the text of your choice.",
-  "version": "2024.9.18",
+  "version": "2024.9.19",
   "author": {
     "email": "simonegauli@gmail.com",
     "name": "Simone Gauli"
@@ -50,6 +50,7 @@
     "@eslint/js": "^9.10.0",
     "@types/eslint__js": "^8.42.3",
     "@types/node": "^22.5.5",
+    "coraline": "github:Pnlvfx/coraline",
     "eslint": "^9.10.0",
     "eslint-plugin-sonarjs": "^2.0.2",
     "eslint-plugin-unicorn": "^55.0.0",
@@ -66,7 +67,6 @@
     "typescript-eslint": "^8.6.0"
   },
   "peerDependencies": {
-    "canvas": "^3.0.0-rc2",
-    "coraline": "github:Pnlvfx/coraline"
+    "canvas": "^3.0.0-rc2"
   }
 }
