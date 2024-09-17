@@ -1,10 +1,9 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
-/**
- * Outputs the dummy package.json file to the path specified
- * by the first argument.
- */
+const output = process.argv[2];
 
-mkdirSync(path.dirname(process.argv[2]), { recursive: true });
-writeFileSync(process.argv[2], `{"type": "commonjs"}`);
+if (!output) throw new Error('No output specified.');
+
+await fs.mkdir(path.dirname(output), { recursive: true });
+await fs.writeFile(output, `{"type": "commonjs"}`);

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import unicorn from 'eslint-plugin-unicorn';
@@ -60,7 +61,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ['**/*.js'],
+    files: ['src/**/*.js'],
     ...tseslint.configs.disableTypeChecked,
   },
 );
