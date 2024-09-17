@@ -1,0 +1,72 @@
+{
+  "name": "text-to-image-2",
+  "description": "A library for generating an image data URI representing an image containing the text of your choice.",
+  "version": "2024.9.17",
+  "author": {
+    "email": "simonegauli@gmail.com",
+    "name": "Simone Gauli"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pnlvfx/text-to-image-2.git"
+  },
+  "keywords": [
+    "text",
+    "image",
+    "image generator",
+    "text generator",
+    "canvas",
+    "twitter"
+  ],
+  "license": "ISC",
+  "type": "module",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "exports": {
+    "types": "./dist/esm/index.d.ts",
+    "import": "./dist/esm/index.js",
+    "require": "./dist/cjs/index.js"
+  },
+  "scripts": {
+    "tsc": "tsc",
+    "generate:package.json": "tsx ./tools/generate-commonjs-package-json.ts dist/cjs/package.json",
+    "unused": "tsx ./tools/unused.ts",
+    "dev": "tsc -w & node --env-file .env --watch ./dist/esm/dev.js",
+    "start": "node .",
+    "lint": "eslint",
+    "build": "rimraf dist && npm run unused && eslint && tsc && npm run build:cjs && npm run generate:package.json",
+    "build:cjs": "tsc --module commonjs --moduleResolution node --outDir dist/cjs",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run test && npm run lint",
+    "test": "jest --coverage"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "devDependencies": {
+    "@eslint/js": "^9.10.0",
+    "@types/eslint__js": "^8.42.3",
+    "@types/node": "^22.5.5",
+    "eslint": "^9.10.0",
+    "eslint-plugin-sonarjs": "^2.0.2",
+    "eslint-plugin-unicorn": "^55.0.0",
+    "glob": "^11.0.0",
+    "image-size": "^1.1.1",
+    "jest": "^29.7.0",
+    "prettier": "^3.3.3",
+    "readimage": "^1.1.1",
+    "rimraf": "^6.0.1",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.6.0"
+  },
+  "peerDependencies": {
+    "canvas": "^3.0.0-rc2",
+    "coraline": "github:Pnlvfx/coraline"
+  }
+}
