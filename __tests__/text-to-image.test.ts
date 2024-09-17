@@ -33,7 +33,7 @@ const sizeOf = async (image: Buffer) => {
   return { width, height };
 };
 
-describe('the text-to-image generator', () => {
+describe('the text-to-image-2 generator', () => {
   afterEach(async () => {
     // remove all pngs created by the lib in debug mode
     const pngs = glob.sync(path.join(process.cwd(), '*.png'));

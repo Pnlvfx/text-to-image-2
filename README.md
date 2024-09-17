@@ -1,9 +1,7 @@
-> The all new version 6.0.0 with **extensions** is now released as [@next](https://github.com/bostrom/text-to-image/tree/next)! Please try it out using `npm i text-to-image@next` and report any issues 🙏
-
 # Text to image
 
-[![Code Coverage](https://img.shields.io/coveralls/bostrom/text-to-image.svg)](https://coveralls.io/github/bostrom/text-to-image-2)
-[![Npm Version](https://img.shields.io/npm/v/text-to-image.svg)](https://www.npmjs.com/package/text-to-image-2)
+[![Code Coverage](https://img.shields.io/coveralls/bostrom/text-to-image-2.svg)](https://coveralls.io/github/bostrom/text-to-image-2)
+[![Npm Version](https://img.shields.io/npm/v/text-to-image-2.svg)](https://www.npmjs.com/package/text-to-image-2)
 [![License](https://img.shields.io/badge/license-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 
 A library for generating an image data URI representing an image containing the text of your choice.
@@ -12,14 +10,14 @@ Originally part of a Twitter bot for publishing tweets longer than 140 character
 
 ## Installation
 
-    npm i text-to-image
+    npm i text-to-image-2
 
-> Note that text-to-image uses [node-canvas](https://github.com/Automattic/node-canvas) to generate the images. For text-to-image to install, you might have to fulfill the [installation requirements for node-canvas](https://github.com/Automattic/node-canvas#installation). Please refer to their documentation for instructions.
+> Note that text-to-image-2 uses [node-canvas](https://github.com/Automattic/node-canvas) to generate the images. For text-to-image-2 to install, you might have to fulfill the [installation requirements for node-canvas](https://github.com/Automattic/node-canvas#installation). Please refer to their documentation for instructions.
 
 ## Usage
 
 ```typescript
-const textToImage = require('text-to-image');
+import textToImage from 'text-to-image-2';
 
 // using the asynchronous API with await
 const dataUri = await textToImage.generate('Lorem ipsum dolor sit amet');
@@ -52,7 +50,7 @@ Line breaks can be added with `\n`.
 Example:
 
 ```typescript
-const textToImage = require('text-to-image');
+import textToImage from 'text-to-image-2';
 
 // Add indent as tabs
 const tabbedText = await textToImage.generate('\tDonec id elit non mi porta gravida at eget metus. \n\tSed posuere consectetur est at lobortis.');
@@ -92,7 +90,7 @@ The available options are as follows.
 Example:
 
 ```typescript
-const textToImage = require('text-to-image');
+import textToImage from 'text-to-image-2';
 
 const dataUri = await textToImage.generate('Lorem ipsum dolor sit amet', {
   debug: true,
@@ -113,8 +111,8 @@ Turn on debug mode to have the library store the generated image data URI as a P
 Example:
 
 ```typescript
-const textToImage = require('text-to-image');
-const path = require('path');
+import textToImage from 'text-to-image-2';
+import path from 'path';
 
 const dataUri = await textToImage.generate('Lorem ipsum dolor sit amet', {
   debug: true,
