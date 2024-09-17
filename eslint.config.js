@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
+// @ts-check
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import unicorn from 'eslint-plugin-unicorn';
