@@ -1,7 +1,7 @@
 {
   "name": "text-to-image-2",
   "description": "A library for generating an image data URI representing an image containing the text of your choice.",
-  "version": "2024.9.22",
+  "version": "2024.9.23",
   "author": {
     "email": "simonegauli@gmail.com",
     "name": "Simone Gauli"
