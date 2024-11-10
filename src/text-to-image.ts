@@ -1,6 +1,7 @@
 import path from 'node:path';
-import fs from 'node:fs';
-import { createCanvas, registerFont, type Canvas } from 'canvas';
+import fs from 'node:fs/promises';
+import { type CanvasGradient, type CanvasPattern, createCanvas, registerFont, type Canvas } from 'canvas';
+import { mkdirSync, writeFileSync } from 'node:fs';
 
 interface GenerateTextOptions {
   bgColor: string | CanvasGradient | CanvasPattern;
@@ -182,8 +183,8 @@ const generate = async (content: string, config?: Partial<GenerateOptions>) => {
 
   if (conf.debug) {
     const fileName = conf.debugFilename || `${new Date().toISOString().replaceAll(/\W/g, '')}.png`;
-    await fs.promises.mkdir(path.resolve(path.dirname(fileName)), { recursive: true });
-    await fs.promises.writeFile(fileName, canvas.toBuffer());
+    await fs.mkdir(path.resolve(path.dirname(fileName)), { recursive: true });
+    await fs.writeFile(fileName, canvas.toBuffer());
   }
 
   return dataUrl;
@@ -196,8 +197,8 @@ const generateSync = (content: string, config?: Partial<GenerateOptions>) => {
 
   if (conf.debug) {
     const fileName = conf.debugFilename || `${new Date().toISOString().replaceAll(/\W/g, '')}.png`;
-    fs.mkdirSync(path.resolve(path.dirname(fileName)), { recursive: true });
-    fs.writeFileSync(fileName, canvas.toBuffer());
+    mkdirSync(path.resolve(path.dirname(fileName)), { recursive: true });
+    writeFileSync(fileName, canvas.toBuffer());
   }
 
   return dataUrl;

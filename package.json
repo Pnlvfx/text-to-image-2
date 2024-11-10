@@ -34,7 +34,7 @@
     "unused": "tsx ./tools/unused.ts",
     "test": "rimraf coverage && jest --coverage",
     "lint": "eslint",
-    "build": "rimraf dist && npm run unused && eslint && npm run build:esm && npm run build:cjs && npm run generate:package.json",
+    "build": "rimraf dist && eslint && npm run build:esm && npm run build:cjs && npm run generate:package.json",
     "build:esm": "tsc -p tsconfig.build.json",
     "build:cjs": "tsc -p tsconfig.build.json --module CommonJS --moduleResolution Node --outDir dist/cjs",
     "prepare": "npm run build",
