@@ -1,6 +1,6 @@
-import coraline from 'coraline';
+import { findUnusedExports } from '@goatjs/ts-unused-exports';
 
-const unused = coraline.findUnusedExports({
+const unused = findUnusedExports({
   ignoreFiles: ['jest.config.ts', 'eslint.config.js'],
   ignoreVars: [],
 });
