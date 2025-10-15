@@ -1,7 +1,7 @@
-import path from 'node:path';
-import fs from 'node:fs/promises';
 import { type CanvasGradient, type CanvasPattern, createCanvas, registerFont, type Canvas } from 'canvas';
 import { mkdirSync, writeFileSync } from 'node:fs';
+import path from 'node:path';
+import fs from 'node:fs/promises';
 
 interface GenerateTextOptions {
   bgColor: string | CanvasGradient | CanvasPattern;

@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/prefer-module */
+/* eslint-disable no-restricted-properties */
 /* eslint-disable unicorn/no-useless-undefined */
 /* eslint-disable unicorn/number-literal-case */
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
@@ -21,6 +21,7 @@ import sharp from 'sharp';
 // after). To be disabled and snapshots removed before
 // committing.
 const snapshots = false;
+
 function takeSnapshot(data: string) {
   if (snapshots) {
     expect(data).toMatchSnapshot();
@@ -449,7 +450,7 @@ describe('the text-to-image-2 generator', () => {
 
   it('should support leading tabs', async () => {
     const uri = await textToImage.generate(
-      `\tDuis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Maecenas sed diam eget risus varius blandit sit amet non magna. Donec id elit non mi porta gravida at eget metus. \n\tAenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.`,
+      '\tDuis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Maecenas sed diam eget risus varius blandit sit amet non magna. Donec id elit non mi porta gravida at eget metus. \n\tAenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.',
     );
 
     const imageData = await readImageData(uriToBuf(uri));
@@ -464,7 +465,7 @@ describe('the text-to-image-2 generator', () => {
   });
 
   it('should not duplicate text with transparent background', async () => {
-    const uri = await textToImage.generate(`Cases in Kanyakum district`, {
+    const uri = await textToImage.generate('Cases in Kanyakum district', {
       customHeight: 900,
       verticalAlign: 'center',
       bgColor: 'transparent',
